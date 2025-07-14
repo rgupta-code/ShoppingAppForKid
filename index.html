@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kid's Shopping App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>🛒 Kid's Shopping Fun!</h1>
+      <input type="text" id="searchInput" placeholder="Search for toys, snacks, and more...">
+    </header>
+    <main>
+      <section id="productList" class="product-list"></section>
+      <aside>
+        <div id="cart" class="cart">
+          <h2>Cart</h2>
+          <ul id="cartItems"></ul>
+          <div class="cart-summary">
+            <span>Total: $<span id="cartTotal">0.00</span></span>
+            <button id="checkoutBtn">Checkout</button>
+          </div>
+        </div>
+        <div id="reorder" class="reorder">
+          <h2>Re-Order</h2>
+          <ul id="reorderList"></ul>
+        </div>
+      </aside>
+    </main>
+    <footer>
+      <span>Powered by Gemini AI | For kids to play shopping at home</span>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html> 

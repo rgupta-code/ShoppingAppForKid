@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Payment - Kid's Shopping App</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .payment-container {
+      max-width: 400px;
+      margin: 60px auto;
+      background: linear-gradient(120deg, #f8bbd0 0%, #ce93d8 100%);
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(180, 80, 200, 0.15);
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .payment-container h2 {
+      color: #d500f9;
+      margin-bottom: 18px;
+    }
+    .payment-form label {
+      display: block;
+      margin: 12px 0 4px 0;
+      color: #b39ddb;
+      font-weight: bold;
+      text-align: left;
+    }
+    .payment-form input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border: 1px solid #f8bbd0;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      background: #fff;
+      transition: box-shadow 0.2s;
+    }
+    .payment-form input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #ea80fc;
+    }
+    .payment-form button {
+      background: linear-gradient(90deg, #fcb6f6 0%, #b39ddb 100%);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 10px 24px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .payment-form button:hover {
+      background: linear-gradient(90deg, #b39ddb 0%, #fcb6f6 100%);
+      color: #d500f9;
+      transform: scale(1.08);
+    }
+    .success-message {
+      color: #d500f9;
+      font-size: 1.3rem;
+      margin: 24px 0 12px 0;
+      font-weight: bold;
+    }
+    .back-btn {
+      background: linear-gradient(90deg, #fcb6f6 0%, #b39ddb 100%);
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .back-btn:hover {
+      background: linear-gradient(90deg, #b39ddb 0%, #fcb6f6 100%);
+      color: #d500f9;
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <h2>Pay with Credit Card</h2>
+    <form class="payment-form" id="paymentForm">
+      <label for="cardName">Name on Card</label>
+      <input type="text" id="cardName" required placeholder="Princess Sparkle">
+      <label for="cardNumber">Card Number</label>
+      <input type="text" id="cardNumber" maxlength="19" required placeholder="1234 5678 9012 3456">
+      <label for="expiry">Expiry</label>
+      <input type="text" id="expiry" maxlength="5" required placeholder="MM/YY">
+      <label for="cvc">CVC</label>
+      <input type="text" id="cvc" maxlength="3" required placeholder="123">
+      <button type="submit">Pay Now</button>
+    </form>
+    <div class="success-message" id="successMessage" style="display:none;">
+      🎉 Payment Successful! Thank you for shopping! 🎉<br>
+      <span id="deliveryDate" style="display:block;margin-top:10px;font-size:1.1rem;color:#b39ddb;font-weight:bold;"></span>
+    </div>
+    <button class="back-btn" id="backBtn" style="display:none;">Back to Shop</button>
+  </div>
+  <script>
+    const form = document.getElementById('paymentForm');
+    const successMessage = document.getElementById('successMessage');
+    const backBtn = document.getElementById('backBtn');
+    const deliveryDateSpan = document.getElementById('deliveryDate');
+    form.onsubmit = function(e) {
+      e.preventDefault();
+      form.style.display = 'none';
+      // Calculate delivery date (3 days from today)
+      const delivery = new Date();
+      delivery.setDate(delivery.getDate() + 3);
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      deliveryDateSpan.textContent = `Estimated Delivery: ${delivery.toLocaleDateString(undefined, options)}`;
+      successMessage.style.display = 'block';
+      backBtn.style.display = 'inline-block';
+      // Clear cart and update reorder history for next session
+      sessionStorage.removeItem('cart');
+    };
+    backBtn.onclick = function() {
+      // Restore reorder history
+      const reorderHistory = sessionStorage.getItem('reorderHistory');
+      if (reorderHistory) {
+        sessionStorage.setItem('reorderHistory', reorderHistory);
+      }
+      window.location.href = 'index.html';
+    };
+  </script>
+</body>
+</html> 
