@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Kid's Shopping App for Kids
 
 A playful, modern web app for kids to enjoy pretend shopping at home! Built with HTML, CSS, and JavaScript, featuring a fun pink and purple theme, interactive cart, and a variety of toys, art, food, and craft items.
@@ -32,5 +31,4 @@ No build tools or server required—everything runs in your browser.
 ---
 For any questions or ideas, feel free to reach out! 
 =======
-##
->>>>>>> f80314f73e246aef8541fb43f79bb5c4c7b07920
+
