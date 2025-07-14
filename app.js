@@ -30,6 +30,20 @@ const products = [
   { id: 25, name: 'Foam Sheets', price: 2.29, image: 'https://img.icons8.com/color/96/000000/stack-of-paper.png' },
   { id: 26, name: 'Pipe Cleaners', price: 1.79, image: 'https://img.icons8.com/color/96/000000/chenille.png' },
   { id: 27, name: 'Googly Eyes', price: 1.49, image: 'https://img.icons8.com/color/96/000000/eye.png' },
+  // More items
+  { id: 28, name: 'Story Book', price: 6.99, image: 'https://img.icons8.com/color/96/000000/book.png' },
+  { id: 29, name: 'Tablet', price: 89.99, image: 'https://img.icons8.com/color/96/000000/tablet.png' },
+  { id: 30, name: 'Soccer Ball', price: 8.99, image: 'https://img.icons8.com/color/96/000000/soccer-ball.png' },
+  { id: 31, name: 'Robot', price: 15.99, image: 'https://img.icons8.com/color/96/000000/robot.png' },
+  { id: 32, name: 'Princess Crown', price: 4.99, image: 'https://img.icons8.com/color/96/000000/crown.png' },
+  { id: 33, name: 'Magic Wand', price: 3.99, image: 'https://img.icons8.com/color/96/000000/magic-wand.png' },
+  { id: 34, name: 'Basketball', price: 12.99, image: 'https://img.icons8.com/color/96/000000/basketball.png' },
+  { id: 35, name: 'Jump Rope', price: 5.49, image: 'https://img.icons8.com/color/96/000000/jump-rope.png' },
+  { id: 36, name: 'Unicorn', price: 11.99, image: 'https://img.icons8.com/color/96/000000/unicorn.png' },
+  { id: 37, name: 'Dragon', price: 13.99, image: 'https://img.icons8.com/color/96/000000/dragon.png' },
+  { id: 38, name: 'Princess Dress', price: 18.99, image: 'https://img.icons8.com/color/96/000000/dress.png' },
+  { id: 39, name: 'Knight Helmet', price: 9.99, image: 'https://img.icons8.com/color/96/000000/helmet.png' },
+  { id: 40, name: 'Castle', price: 24.99, image: 'https://img.icons8.com/color/96/000000/castle.png' },
 ];
 
 let cart = [];
@@ -38,10 +52,59 @@ let reorderHistory = [];
 // --- DOM Elements ---
 const productList = document.getElementById('productList');
 const searchInput = document.getElementById('searchInput');
+const searchDropdown = document.getElementById('searchDropdown');
 const cartItems = document.getElementById('cartItems');
 const cartTotal = document.getElementById('cartTotal');
 const checkoutBtn = document.getElementById('checkoutBtn');
 const reorderList = document.getElementById('reorderList');
+
+// --- Search Dropdown ---
+function showSearchDropdown(query) {
+  if (!query.trim()) {
+    searchDropdown.classList.remove('show');
+    return;
+  }
+  
+  const filtered = products.filter(p => 
+    p.name.toLowerCase().includes(query.toLowerCase())
+  );
+  
+  if (filtered.length === 0) {
+    searchDropdown.classList.remove('show');
+    return;
+  }
+  
+  searchDropdown.innerHTML = filtered.map(product => `
+    <div class="search-item" onclick="selectFromSearch(${product.id})">
+      <img src="${product.image}" alt="${product.name}">
+      <div class="search-item-info">
+        <div class="search-item-name">${product.name}</div>
+        <div class="search-item-price">$${product.price.toFixed(2)}</div>
+      </div>
+    </div>
+  `).join('');
+  
+  searchDropdown.classList.add('show');
+}
+
+function selectFromSearch(productId) {
+  addToCart(productId);
+  searchInput.value = '';
+  searchDropdown.classList.remove('show');
+  // Show a brief success message
+  const originalText = searchInput.placeholder;
+  searchInput.placeholder = 'Added to cart! 🎉';
+  setTimeout(() => {
+    searchInput.placeholder = originalText;
+  }, 1500);
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-container')) {
+    searchDropdown.classList.remove('show');
+  }
+});
 
 // --- Render Products ---
 function renderProducts(filter = '') {
@@ -151,7 +214,9 @@ window.reorder = function(idx) {
 
 // --- Search ---
 searchInput.addEventListener('input', e => {
-  renderProducts(e.target.value);
+  const query = e.target.value;
+  showSearchDropdown(query);
+  renderProducts(query);
 });
 
 // --- Placeholder for Gemini API integration ---

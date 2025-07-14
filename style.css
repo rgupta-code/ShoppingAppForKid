@@ -28,8 +28,13 @@ header h1 {
   color: #d500f9;
   text-shadow: 1px 2px 0 #fff6e0;
 }
-#searchInput {
+.search-container {
+  position: relative;
+  display: inline-block;
   width: 60%;
+}
+#searchInput {
+  width: 100%;
   padding: 12px 18px;
   border-radius: 20px;
   border: 1px solid #f8bbd0;
@@ -40,6 +45,55 @@ header h1 {
 #searchInput:focus {
   outline: none;
   box-shadow: 0 0 0 2px #ea80fc;
+}
+.search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(180, 80, 200, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+  margin-top: 4px;
+}
+.search-dropdown.show {
+  display: block;
+}
+.search-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom: 1px solid #f8bbd0;
+}
+.search-item:last-child {
+  border-bottom: none;
+}
+.search-item:hover {
+  background: #fce4ec;
+}
+.search-item img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-right: 12px;
+}
+.search-item-info {
+  flex: 1;
+}
+.search-item-name {
+  font-weight: bold;
+  color: #d500f9;
+  margin-bottom: 2px;
+}
+.search-item-price {
+  color: #b39ddb;
+  font-size: 0.9rem;
 }
 main {
   display: flex;
